@@ -7,5 +7,3 @@
 	hideDotFiles = dotGitOnly
 [remote "origin"]
 	url = https://github.com/xkproject/Downplay.Orchard.LayoutSelector.git
-[remote "Downplay.Orchard.LayoutSelector"]
-	url = https://github.com/xkproject/Downplay.Orchard.LayoutSelector.git
