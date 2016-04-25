@@ -7,6 +7,7 @@ using Orchard.ContentManagement.Drivers;
 using Orchard;
 using Downplay.Orchard.LayoutSelector.Services;
 using Orchard.ContentManagement;
+using Orchard.ContentManagement.Handlers;
 
 namespace Downplay.Orchard.LayoutSelector.Drivers
 {
@@ -60,6 +61,24 @@ namespace Downplay.Orchard.LayoutSelector.Drivers
             // Now just display the same editor as before
             return Editor(part, shapeHelper);
         }
+        
+        protected override void Importing(LayoutSelectorPart part, ImportContentContext context) {
+            // Don't do anything if the tag is not specified.
+            if (context.Data.Element(part.PartDefinition.Name) == null) {
+                return;
+            }
+
+            context.ImportAttribute(part.PartDefinition.Name, "LayoutName", layoutName =>
+                part.LayoutName = layoutName
+            );
+        }
+
+        protected override void Exporting(LayoutSelectorPart part, ExportContentContext context) {
+            if (part.LayoutName != null) {
+                context.Element(part.PartDefinition.Name).SetAttributeValue("LayoutName", part.LayoutName);
+            }
+        }
+
     }
 }
 /*
